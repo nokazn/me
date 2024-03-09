@@ -1,0 +1,10 @@
+{
+  "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
+  "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "never"
+    },
+    "editor.defaultFormatter": "dprint.dprint",
+    "editor.formatOnSave": true
+  }
+}

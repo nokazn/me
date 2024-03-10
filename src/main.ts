@@ -1,6 +1,7 @@
 import { Elm } from "./Main.elm";
 
-if (process.env.NODE_ENV === "development") {
+if (import.meta.env.DEV) {
+  // @ts-expect-error
   const ElmDebugTransform = await import("elm-debug-transformer");
   ElmDebugTransform.register({
     simple_mode: true,

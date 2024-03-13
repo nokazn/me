@@ -1,6 +1,6 @@
 {
   "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
-  "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc]": {
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "never"
     },

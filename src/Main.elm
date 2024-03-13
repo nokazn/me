@@ -1,8 +1,10 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Browser
-import Html exposing (Html, a, button, div, h2, h3, li, main_, p, section, text, ul)
-import Html.Attributes exposing (href)
+import Components.Link
+import Css
+import Html.Styled exposing (Html, div, h2, li, main_, section, text, toUnstyled, ul)
+import Html.Styled.Attributes exposing (css)
 
 
 
@@ -11,11 +13,10 @@ import Html.Attributes exposing (href)
 
 main : Program () Model Msg
 main =
-    Browser.element
+    Browser.sandbox
         { init = init
         , update = update
-        , view = view
-        , subscriptions = subscriptions
+        , view = view >> toUnstyled
         }
 
 
@@ -27,9 +28,9 @@ type alias Model =
     String
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( "", Cmd.none )
+init : Model
+init =
+    ""
 
 
 
@@ -40,9 +41,9 @@ type Msg
     = NoOp
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> Model
 update _ model =
-    ( model, Cmd.none )
+    model
 
 
 
@@ -50,117 +51,113 @@ update _ model =
 
 
 view : Model -> Html Msg
-view model =
+view _ =
     let
         username =
             "nokazn"
+
+        appendUsername str =
+            str ++ username
+
+        appendDomain str =
+            String.concat [ str, username, ".me" ]
+
+        whereaboutLinks : List Components.Link.Props
+        whereaboutLinks =
+            [ { href = appendUsername "https://twitter.com/"
+              , text = "Twitter (X)"
+              }
+            , { href = appendDomain "https://bsky.app/profile/bsky."
+              , text = "Bluesky"
+              }
+            , { href = "https://mstdn.jp/@nokazzn"
+              , text = "Mastdon (mstdn.jp)"
+              }
+            , { href = appendUsername "https://misskey.io/@"
+              , text = "Misskey (misskey.io)"
+              }
+            , { href = "https://discord.com/users/642284424548843531"
+              , text = "Discord"
+              }
+            , { href = appendUsername "https://keybase.io/"
+              , text = "Keybase"
+              }
+            , { href = appendUsername "https://www.reddit.com/user/"
+              , text = "Reddit"
+              }
+            , { href = appendUsername "https://scrapbox.io/"
+              , text = "Scrapbox"
+              }
+            , { href = appendDomain "https://md."
+              , text = "メモ帳"
+              }
+            , { href = appendUsername "https://github.com/"
+              , text = "GitHub"
+              }
+            , { href = appendUsername "https://gitlab.com/"
+              , text = "GitLab"
+              }
+            , { href = appendUsername "https://stackoverflow.com/users/12688834/"
+              , text = "Stack Overflow"
+              }
+            , { href = appendUsername "https://soundcloud.com/"
+              , text = "SoundCloud"
+              }
+            , { href = appendUsername "https://bandcamp.com/"
+              , text = "Bandcamp"
+              }
+            , { href = "https://open.spotify.com/user/baleariclemon"
+              , text = "Spotify"
+              }
+            ]
+
+        contactLinks =
+            let
+                email =
+                    appendDomain "me@"
+            in
+            [ ( "Email: "
+              , { href = "mailto:" ++ email
+                , text = email
+                }
+              )
+            , ( "Twitter: "
+              , { href = appendUsername "https://twitter.com/"
+                , text = "@" ++ username
+                }
+              )
+            ]
     in
-    main_ []
-        [ button [] [ text "Hello" ]
-        , button [] [ text "World" ]
-        , p [] [ text model ]
-        , section []
+    main_
+        [ css
+            [ Css.fontFamilies [ "Share Tech Mono", Css.monospace.value ]
+            , Css.fontWeight (Css.int 400)
+            , Css.fontStyle Css.normal
+            ]
+        ]
+        [ section []
             [ h2 [] [ text "Whereabout" ]
             , ul []
-                [ li []
-                    [ a
-                        [ href ("https://twitter.com/" ++ username) ]
-                        [ text "Twitter (X)" ]
-                    ]
-                , li []
-                    [ a
-                        [ href "https://bsky.app/profile/bsky.nokazn.me"
-                        ]
-                        [ text "Bluesky" ]
-                    ]
-                , li []
-                    [ a
-                        [ href "https://mstdn.jp/@nokazzn"
-                        ]
-                        [ text "Mastdon (mstdn.jp)" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://misskey.io/@" ++ username) ]
-                        [ text "Misskey (misskey.io)" ]
-                    ]
-                , li []
-                    [ a
-                        [ href "https://discord.com/users/642284424548843531" ]
-                        [ text "Discord" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://keybase.io/" ++ username) ]
-                        [ text "Keybase" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://www.reddit.com/user/" ++ username) ]
-                        [ text "Reddit" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://scrapbox.io/" ++ username) ]
-                        [ text "Scrapbox" ]
-                    ]
-                , li []
-                    [ a
-                        [ href "https://md.nokazn.me/" ]
-                        [ text "メモ帳" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://github.com/" ++ username) ]
-                        [ text "GitHub" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://gitlab.com/" ++ username) ]
-                        [ text "GitLab" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://stackoverflow.com/users/12688834/" ++ username) ]
-                        [ text "Stack Overflow" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://soundcloud.com/" ++ username) ]
-                        [ text "SoundCloud" ]
-                    ]
-                , li []
-                    [ a
-                        [ href ("https://bandcamp.com/" ++ username) ]
-                        [ text "Bandcamp" ]
-                    ]
-                , li []
-                    [ a
-                        [ href "https://open.spotify.com/user/baleariclemon" ]
-                        [ text "Spotify" ]
-                    ]
-                ]
+                (let
+                    liLink props =
+                        li [] [ Components.Link.view props ]
+                 in
+                 List.map liLink whereaboutLinks
+                )
             ]
         , section []
             [ h2 [] [ text "Contact" ]
             , ul []
-                [ li []
-                    [ text "Email: "
-                    , a
-                        [ href "mailto:me@nokazn.me" ]
-                        [ text "me@nokazn.me" ]
-                    ]
-                , li []
-                    [ text "Twitter: "
-                    , a
-                        [ href ("https://twitter.com" ++ username) ]
-                        [ text "@nokazn" ]
-                    ]
-                ]
+                (let
+                    liLink ( label, props ) =
+                        li []
+                            [ text label
+                            , Components.Link.view props
+                            ]
+                 in
+                 List.map
+                    liLink
+                    contactLinks
+                )
             ]
         ]
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none

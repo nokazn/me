@@ -1,8 +1,9 @@
-module Components.Link exposing (Props, view)
+module Components.Primitives.Link exposing (Props, view)
 
 import Css
 import Html.Styled exposing (Html, a, text)
 import Html.Styled.Attributes exposing (css, href)
+import Utils.Colors exposing (colors)
 
 
 type alias Props =
@@ -15,9 +16,9 @@ view : Props -> Html msg
 view props =
     a
         [ css
-            [ Css.color (Css.hex "edd374")
+            [ Css.color colors.link
             , Css.visited
-                [ Css.color (Css.hex "edab74")
+                [ Css.color colors.linkVisited
                 ]
             ]
         , href props.href

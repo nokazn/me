@@ -1,10 +1,14 @@
 module Main exposing (main)
 
 import Browser
-import Components.Link
+import Components.Layouts.Footer as Footer
+import Components.Primitives.Card as Card
+import Components.Primitives.Link as Link
+import Components.Profile as Profile
 import Css
-import Html.Styled exposing (Html, div, h2, li, main_, section, text, toUnstyled, ul)
-import Html.Styled.Attributes exposing (css)
+import Html.Styled exposing (Html, aside, div, h2, h3, li, main_, section, text, toUnstyled, ul)
+import Html.Styled.Attributes exposing (css, style)
+import Utils.Styles exposing (sectionMargin)
 
 
 
@@ -62,7 +66,7 @@ view _ =
         appendDomain str =
             String.concat [ str, username, ".me" ]
 
-        whereaboutLinks : List Components.Link.Props
+        whereaboutLinks : List Link.Props
         whereaboutLinks =
             [ { href = appendUsername "https://twitter.com/"
               , text = "Twitter (X)"
@@ -128,36 +132,85 @@ view _ =
               )
             ]
     in
-    main_
+    div
         [ css
             [ Css.fontFamilies [ "Share Tech Mono", Css.monospace.value ]
-            , Css.fontWeight (Css.int 400)
+            , Css.fontWeight <| Css.int 400
             , Css.fontStyle Css.normal
+            , Css.boxSizing Css.borderBox
+            , Css.padding2 (Css.px 40) (Css.px 24)
+            , Css.height <| Css.vh 100
             ]
+        , style "display" "grid"
+        , style "grid-template-columns" "minmax(auto, 800px) minmax(280px, 320px)"
+        , style "grid-template-rows" "1fr auto"
+        , style "gap" "16px"
+        , style "justify-content" "center"
         ]
-        [ section []
-            [ h2 [] [ text "Whereabout" ]
-            , ul []
-                (let
-                    liLink props =
-                        li [] [ Components.Link.view props ]
-                 in
-                 List.map liLink whereaboutLinks
-                )
+        [ main_
+            [ css
+                [ Css.minWidth <| Css.px 400
+                , Css.paddingBottom <| Css.px 24
+                ]
             ]
-        , section []
-            [ h2 [] [ text "Contact" ]
-            , ul []
-                (let
-                    liLink ( label, props ) =
-                        li []
-                            [ text label
-                            , Components.Link.view props
-                            ]
-                 in
-                 List.map
-                    liLink
-                    contactLinks
-                )
+            [ Card.view
+                [ css
+                    [ Css.height <| Css.pct 100
+                    ]
+                ]
+                [ section
+                    [ css [ sectionMargin ] ]
+                    [ Profile.view [] { username = username }
+                    ]
+                , section
+                    [ css [ sectionMargin ] ]
+                    [ h2 [] [ text "Whereabout" ]
+                    , ul []
+                        (let
+                            liLink props =
+                                li [] [ Link.view props ]
+                         in
+                         List.map liLink whereaboutLinks
+                        )
+                    ]
+                , section
+                    []
+                    [ h2 [] [ text "Contact" ]
+                    , ul []
+                        (let
+                            liLink ( label, props ) =
+                                li []
+                                    [ text label
+                                    , Link.view props
+                                    ]
+                         in
+                         List.map
+                            liLink
+                            contactLinks
+                        )
+                    ]
+                ]
             ]
+        , aside
+            [ css
+                [ Css.paddingBottom <| Css.px 24
+                ]
+            ]
+            [ Card.view
+                [ css
+                    [ Css.height <| Css.pct 100
+                    ]
+                ]
+                [ h2
+                    []
+                    [ text "Activities" ]
+                , h3
+                    []
+                    [ text "Music" ]
+                ]
+            ]
+        , Footer.view
+            [ style "grid-column" "1 / -1"
+            ]
+            {}
         ]

@@ -142,7 +142,7 @@ view _ =
             , Css.height <| Css.vh 100
             ]
         , style "display" "grid"
-        , style "grid-template-columns" "minmax(auto, 720px) minmax(280px, 320px)"
+        , style "grid-template-columns" "minmax(auto, 640px) minmax(240px, 320px)"
         , style "grid-template-rows" "1fr auto"
         , style "gap" "16px"
         , style "justify-content" "center"

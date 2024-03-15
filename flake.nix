@@ -29,6 +29,10 @@
         pnpm install
       '';
       bin = with pkgs; with nodePackages; [
+        (writeScriptBin "check" ''
+          ${pnpm}/bin/pnpm run lint
+          ${pnpm}/bin/pnpm run test
+        '')
         (writeScriptBin "build" ''
           ${pnpm}/bin/pnpm run build
         '')

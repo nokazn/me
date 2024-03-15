@@ -69,7 +69,7 @@ view _ =
         whereaboutLinks : List Link.Props
         whereaboutLinks =
             [ { href = appendUsername "https://twitter.com/"
-              , text = "Twitter (X)"
+              , text = "Twitter"
               }
             , { href = appendDomain "https://bsky.app/profile/bsky."
               , text = "Bluesky"
@@ -93,7 +93,7 @@ view _ =
               , text = "Scrapbox"
               }
             , { href = appendDomain "https://md."
-              , text = "メモ帳"
+              , text = "memo"
               }
             , { href = appendUsername "https://github.com/"
               , text = "GitHub"
@@ -142,7 +142,7 @@ view _ =
             , Css.height <| Css.vh 100
             ]
         , style "display" "grid"
-        , style "grid-template-columns" "minmax(auto, 800px) minmax(280px, 320px)"
+        , style "grid-template-columns" "minmax(auto, 720px) minmax(280px, 320px)"
         , style "grid-template-rows" "1fr auto"
         , style "gap" "16px"
         , style "justify-content" "center"

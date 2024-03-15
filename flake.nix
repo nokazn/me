@@ -30,7 +30,7 @@
       '';
       bin = with pkgs; with nodePackages; [
         (writeScriptBin "check" ''
-          ${pnpm}/bin/pnpm run lint
+          ${pnpm}/bin/pnpm run check
           ${pnpm}/bin/pnpm run test
         '')
         (writeScriptBin "build" ''
@@ -44,7 +44,7 @@
       devShells = {
         default = pkgs.mkShell {
           inherit name shellHook;
-          buildInputs = deps ++ devDeps;
+          buildInputs = deps ++ devDeps ++ bin;
         };
         build = pkgs.mkShell {
           inherit name shellHook;

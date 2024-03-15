@@ -6,11 +6,17 @@
     "prebuild": "elm-tooling install",
     "build": "vite build",
     "serve": "vite preview",
-    "lint": "elm-review",
+    "check": "concurrently -c auto npm:check:*",
+    "check:format": "elm-format --validate .",
+    "check:lint": "elm-review",
+    "fix": "concurrently -c auto npm:fix:*",
+    "fix:format": "elm-format .",
+    "fix:lint": "elm-review --fix",
     "test": "elm-test-rs"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
+    "concurrently": "^8.2.2",
     "elm-debug-transformer": "^1.2.1",
     "elm-tooling": "^1.15.0",
     "typescript": "^5.4.2",

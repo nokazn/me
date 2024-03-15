@@ -24,7 +24,7 @@ view attrs props =
         )
         [ Image.view
             []
-            { src = "./src/assets/img/me.jpg"
+            { src = "./img/me.jpg"
             , alt = props.username
             , size = 100
             }

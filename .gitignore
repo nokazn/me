@@ -5,3 +5,4 @@ repl-temp-*
 
 .direnv
 node_modules
+dist

@@ -1,4 +1,4 @@
-module Utils.Colors exposing (..)
+module Utils.Colors exposing (colors)
 
 import Css
 

@@ -15,7 +15,7 @@ import Utils.Styles exposing (sectionMargin)
 -- Main
 
 
-main : Program () Model Msg
+main : Program () Model ()
 main =
     Browser.sandbox
         { init = init
@@ -41,11 +41,7 @@ init =
 -- Update
 
 
-type Msg
-    = NoOp
-
-
-update : Msg -> Model -> Model
+update : () -> Model -> Model
 update _ model =
     model
 
@@ -54,83 +50,20 @@ update _ model =
 -- View
 
 
-view : Model -> Html Msg
+view : Model -> Html ()
 view _ =
     let
+        username : String
         username =
             "nokazn"
 
+        appendUsername : String -> String
         appendUsername str =
             str ++ username
 
+        appendDomain : String -> String
         appendDomain str =
             String.concat [ str, username, ".me" ]
-
-        whereaboutLinks : List Link.Props
-        whereaboutLinks =
-            [ { href = appendUsername "https://twitter.com/"
-              , text = "Twitter"
-              }
-            , { href = appendDomain "https://bsky.app/profile/bsky."
-              , text = "Bluesky"
-              }
-            , { href = "https://mstdn.jp/@nokazzn"
-              , text = "Mastdon (mstdn.jp)"
-              }
-            , { href = appendUsername "https://misskey.io/@"
-              , text = "Misskey (misskey.io)"
-              }
-            , { href = "https://discord.com/users/642284424548843531"
-              , text = "Discord"
-              }
-            , { href = appendUsername "https://keybase.io/"
-              , text = "Keybase"
-              }
-            , { href = appendUsername "https://www.reddit.com/user/"
-              , text = "Reddit"
-              }
-            , { href = appendUsername "https://scrapbox.io/"
-              , text = "Scrapbox"
-              }
-            , { href = appendDomain "https://md."
-              , text = "memo"
-              }
-            , { href = appendUsername "https://github.com/"
-              , text = "GitHub"
-              }
-            , { href = appendUsername "https://gitlab.com/"
-              , text = "GitLab"
-              }
-            , { href = appendUsername "https://stackoverflow.com/users/12688834/"
-              , text = "Stack Overflow"
-              }
-            , { href = appendUsername "https://soundcloud.com/"
-              , text = "SoundCloud"
-              }
-            , { href = appendUsername "https://bandcamp.com/"
-              , text = "Bandcamp"
-              }
-            , { href = "https://open.spotify.com/user/baleariclemon"
-              , text = "Spotify"
-              }
-            ]
-
-        contactLinks =
-            let
-                email =
-                    appendDomain "me@"
-            in
-            [ ( "Email: "
-              , { href = "mailto:" ++ email
-                , text = email
-                }
-              )
-            , ( "Twitter: "
-              , { href = appendUsername "https://twitter.com/"
-                , text = "@" ++ username
-                }
-              )
-            ]
     in
     div
         [ css
@@ -167,10 +100,57 @@ view _ =
                     [ h2 [] [ text "Whereabout" ]
                     , ul []
                         (let
+                            liLink : Link.Props -> Html msg
                             liLink props =
                                 li [] [ Link.view props ]
                          in
-                         List.map liLink whereaboutLinks
+                         List.map liLink
+                            [ { href = appendUsername "https://twitter.com/"
+                              , text = "Twitter"
+                              }
+                            , { href = appendDomain "https://bsky.app/profile/bsky."
+                              , text = "Bluesky"
+                              }
+                            , { href = "https://mstdn.jp/@nokazzn"
+                              , text = "Mastdon (mstdn.jp)"
+                              }
+                            , { href = appendUsername "https://misskey.io/@"
+                              , text = "Misskey (misskey.io)"
+                              }
+                            , { href = "https://discord.com/users/642284424548843531"
+                              , text = "Discord"
+                              }
+                            , { href = appendUsername "https://keybase.io/"
+                              , text = "Keybase"
+                              }
+                            , { href = appendUsername "https://www.reddit.com/user/"
+                              , text = "Reddit"
+                              }
+                            , { href = appendUsername "https://scrapbox.io/"
+                              , text = "Scrapbox"
+                              }
+                            , { href = appendDomain "https://md."
+                              , text = "memo"
+                              }
+                            , { href = appendUsername "https://github.com/"
+                              , text = "GitHub"
+                              }
+                            , { href = appendUsername "https://gitlab.com/"
+                              , text = "GitLab"
+                              }
+                            , { href = appendUsername "https://stackoverflow.com/users/12688834/"
+                              , text = "Stack Overflow"
+                              }
+                            , { href = appendUsername "https://soundcloud.com/"
+                              , text = "SoundCloud"
+                              }
+                            , { href = appendUsername "https://bandcamp.com/"
+                              , text = "Bandcamp"
+                              }
+                            , { href = "https://open.spotify.com/user/baleariclemon"
+                              , text = "Spotify"
+                              }
+                            ]
                         )
                     ]
                 , section
@@ -178,6 +158,7 @@ view _ =
                     [ h2 [] [ text "Contact" ]
                     , ul []
                         (let
+                            liLink : ( String, Link.Props ) -> Html msg
                             liLink ( label, props ) =
                                 li []
                                     [ text label
@@ -186,7 +167,23 @@ view _ =
                          in
                          List.map
                             liLink
-                            contactLinks
+                            (let
+                                email : String
+                                email =
+                                    appendDomain "me@"
+                             in
+                             [ ( "Email: "
+                               , { href = "mailto:" ++ email
+                                 , text = email
+                                 }
+                               )
+                             , ( "Twitter: "
+                               , { href = appendUsername "https://twitter.com/"
+                                 , text = "@" ++ username
+                                 }
+                               )
+                             ]
+                            )
                         )
                     ]
                 ]

@@ -1,4 +1,4 @@
-module Components.Layouts.Footer exposing (..)
+module Components.Layouts.Footer exposing (view)
 
 import Css
 import Html.Styled exposing (Attribute, Html, footer, small, text)

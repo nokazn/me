@@ -23,6 +23,7 @@
         elmPackages.elm-format
         elmPackages.elm-test-rs
         elmPackages.elm-review
+        elmPackages.elm-json
       ];
       shellHook = ''
         pnpm install

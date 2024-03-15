@@ -18,6 +18,7 @@
         elm2nix
         nodePackages.pnpm
         elmPackages.elm
+        wrangler
       ];
       devDeps = with pkgs; [
         elmPackages.elm-format
@@ -35,6 +36,9 @@
         '')
         (writeScriptBin "build" ''
           ${pnpm}/bin/pnpm run build
+        '')
+        (writeScriptBin "deploy" ''
+          ${pnpm}/bin/pnpm run deploy
         '')
       ];
     in

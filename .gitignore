@@ -4,5 +4,6 @@ elm-stuff
 repl-temp-*
 
 .direnv
-node_modules
+.wrangler
 dist
+node_modules

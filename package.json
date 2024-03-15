@@ -1,11 +1,15 @@
 {
+  "name": "nokazn.me",
+  "private": true,
   "type": "module",
   "scripts": {
     "postinstall": "elm-tooling install",
     "dev": "vite",
     "prebuild": "elm-tooling install",
     "build": "vite build",
-    "serve": "vite preview",
+    "preview": "wrangler pages dev ./dist",
+    "deploy": "concurrently -c auto npm:deploy:*",
+    "deploy:pages": "wrangler pages deploy ./dist",
     "check": "concurrently -c auto npm:check:*",
     "check:format": "elm-format --validate .",
     "check:lint": "elm-review",

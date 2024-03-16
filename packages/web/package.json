@@ -8,7 +8,7 @@
     "prebuild": "elm-tooling install",
     "build": "vite build",
     "preview": "wrangler pages dev ./dist",
-    "deploy": "wrangler pages deploy ./dist",
+    "deploy": "wrangler pages deploy ./dist --project-name me",
     "check": "concurrently -c auto npm:check:*",
     "check:format": "elm-format --validate .",
     "check:lint": "elm-review",

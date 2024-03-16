@@ -17,7 +17,4 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
 
       - name: Check
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: nix develop . -c check

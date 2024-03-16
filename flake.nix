@@ -13,14 +13,14 @@
     }: flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
-      deps = with pkgs; [
+      webDeps = with pkgs; [
         nodejs
         elm2nix
         nodePackages.pnpm
         elmPackages.elm
         wrangler
       ];
-      devDeps = with pkgs; [
+      webDevDeps = with pkgs; [
         elmPackages.elm-format
         elmPackages.elm-test-rs
         elmPackages.elm-review
@@ -31,14 +31,14 @@
       '';
       bin = with pkgs; with nodePackages; [
         (writeScriptBin "check" ''
-          ${pnpm}/bin/pnpm run check
-          ${pnpm}/bin/pnpm run test
+          ${pnpm}/bin/pnpm run -r check
+          ${pnpm}/bin/pnpm run -r test
         '')
         (writeScriptBin "build" ''
-          ${pnpm}/bin/pnpm run build
+          ${pnpm}/bin/pnpm run -r build
         '')
         (writeScriptBin "deploy" ''
-          ${pnpm}/bin/pnpm run deploy
+          ${pnpm}/bin/pnpm run -r deploy
         '')
       ];
     in
@@ -48,11 +48,11 @@
       devShells = {
         default = pkgs.mkShell {
           inherit name shellHook;
-          buildInputs = deps ++ devDeps ++ bin;
+          buildInputs = webDeps ++ webDevDeps ++ bin;
         };
         build = pkgs.mkShell {
           inherit name shellHook;
-          buildInputs = deps ++ bin;
+          buildInputs = webDeps ++ bin;
         };
       };
 
@@ -63,13 +63,13 @@
         {
           default = pkgs.stdenv.mkDerivation {
             inherit name;
-            buildInputs = deps;
+            buildInputs = webDeps;
             src = pkgs.lib.cleanSource ./.;
 
             configurePhase = pkgs.elmPackages.fetchElmDeps {
-              elmPackages = import ./elm-srcs.nix;
+              elmPackages = import ./packages/web/elm-srcs.nix;
               elmVersion = "0.19.1";
-              registryDat = ./registry.dat;
+              registryDat = ./packages/web/registry.dat;
             };
 
             # TODO: fix `pnpm run build` errors

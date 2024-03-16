@@ -3,28 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "elm-tooling install",
-    "dev": "vite",
-    "prebuild": "elm-tooling install",
-    "build": "vite build",
-    "preview": "wrangler pages dev ./dist",
-    "deploy": "concurrently -c auto npm:deploy:*",
-    "deploy:pages": "wrangler pages deploy ./dist",
-    "check": "concurrently -c auto npm:check:*",
-    "check:format": "elm-format --validate .",
-    "check:lint": "elm-review",
-    "fix": "concurrently -c auto npm:fix:*",
-    "fix:format": "elm-format .",
-    "fix:lint": "elm-review --fix",
-    "test": "elm-test-rs"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
     "concurrently": "^8.2.2",
-    "elm-debug-transformer": "^1.2.1",
-    "elm-tooling": "^1.15.0",
-    "typescript": "^5.4.2",
-    "vite": "^5.1.5",
-    "vite-plugin-elm": "^3.0.0"
+    "typescript": "^5.4.2"
   }
 }

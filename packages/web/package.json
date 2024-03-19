@@ -22,7 +22,7 @@
     "@types/node": "^20.11.25",
     "concurrently": "^8.2.2",
     "elm-debug-transformer": "^1.2.1",
-    "elm-tooling": "^1.15.0",
+    "elm-tooling": "^1.15.1",
     "typescript": "^5.4.2",
     "vite": "^5.1.5",
     "vite-plugin-elm": "^3.0.0"

@@ -30,8 +30,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1
       elm-tooling:
-        specifier: ^1.15.0
-        version: 1.15.0
+        specifier: ^1.15.1
+        version: 1.15.1
       typescript:
         specifier: ^5.4.2
         version: 5.4.2
@@ -483,8 +483,8 @@ packages:
       which: 2.0.2
     dev: true
 
-  /elm-tooling@1.15.0:
-    resolution: {integrity: sha512-quRE5LGJyrkPBoJ3MvFQ5RGgf80J0L0d3NkduStvXh4TmZuMXNC3Z/l2ZRoq2UTUaNWeYfO1Zx5wns1AvsTrnw==}
+  /elm-tooling@1.15.1:
+    resolution: {integrity: sha512-+rRYa7gzz6l2/Ip2i197MqkW5abOwPOP/+WlyyatLDeDhh+JR0HUMlZJYenCYodBeG/xW5xW3pRYQ2onf5bIAw==}
     hasBin: true
     dev: true
 

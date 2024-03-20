@@ -70,6 +70,18 @@ view _ =
         breakPoint : Float
         breakPoint =
             768
+
+        minDeviceWidth : Float
+        minDeviceWidth =
+            320
+
+        minSideMargin : Float
+        minSideMargin =
+            16
+
+        minCardWidth : Float
+        minCardWidth =
+            minDeviceWidth - minSideMargin * 2
     in
     div
         [ css
@@ -77,9 +89,11 @@ view _ =
             , Css.fontWeight <| Css.int 400
             , Css.fontStyle Css.normal
             , Css.boxSizing Css.borderBox
+
+            -- SP
             , Css.Media.withMedia
                 [ Css.Media.only Css.Media.screen [ Css.Media.maxWidth <| Css.px breakPoint ] ]
-                [ Css.property "padding" "32px max(16px, 4%)"
+                [ Css.property "padding" ("32px max(" ++ String.fromFloat minSideMargin ++ "px, 4%)")
                 , Css.Global.children
                     [ Css.Global.everything
                         [ Css.pseudoClass "not(:last-child)"
@@ -88,6 +102,8 @@ view _ =
                         ]
                     ]
                 ]
+
+            -- PC
             , Css.Media.withMedia
                 [ Css.Media.only Css.Media.screen [ Css.Media.minWidth <| Css.px (breakPoint + 1) ] ]
                 [ Css.property "display" "grid"
@@ -100,15 +116,20 @@ view _ =
         ]
         [ Card.view main_
             [ css
-                [ Css.minWidth <| Css.px 288
+                [ Css.minWidth <| Css.px minCardWidth
+                , Css.Global.children
+                    [ Css.Global.everything
+                        [ sectionMargin
+                        ]
+                    ]
                 ]
             ]
             [ section
-                [ css [ sectionMargin ] ]
+                []
                 [ Profile.view [] { username = username }
                 ]
             , section
-                [ css [ sectionMargin ] ]
+                []
                 [ h2 [] [ text "Whereabout" ]
                 , ul []
                     (let
@@ -201,7 +222,8 @@ view _ =
             ]
         , Card.view aside
             [ css
-                []
+                [ Css.minWidth <| Css.px minCardWidth
+                ]
             ]
             [ h2
                 []

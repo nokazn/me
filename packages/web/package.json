@@ -5,10 +5,7 @@
   "scripts": {
     "postinstall": "elm-tooling install",
     "dev": "vite",
-    "prebuild": "elm-tooling install",
-    "build": "vite build",
     "preview": "wrangler pages dev ./dist",
-    "deploy": "wrangler pages deploy ./dist --project-name me",
     "check": "concurrently -c auto npm:check:*",
     "check:format": "elm-format --validate .",
     "check:lint": "elm-review",
@@ -16,11 +13,14 @@
     "fix": "concurrently -c auto npm:fix:*",
     "fix:format": "elm-format .",
     "fix:lint": "elm-review --fix",
-    "test": "elm-test-rs"
+    "test": "elm-test-rs",
+    "prebuild": "elm-tooling install",
+    "build": "vite build",
+    "deploy": "wrangler pages deploy ./dist --project-name me"
   },
   "devDependencies": {
-    "elm-debug-transformer": "^1.2.1",
-    "elm-tooling": "^1.15.1",
+    "elm-debug-transformer": "1.2.1",
+    "elm-tooling": "1.15.1",
     "vite": "^5.1.5",
     "vite-plugin-elm": "^3.0.0"
   }

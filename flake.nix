@@ -24,6 +24,7 @@
         buildInputs = with pkgs ; [
           dprint
           nixpkgs-fmt
+          just
         ];
       };
       webLib = import ./packages/web {

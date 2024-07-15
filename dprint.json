@@ -9,7 +9,9 @@
   },
   "excludes": [
     "**/node_modules",
-    "**/*-lock.json"
+    "**/*-lock.json",
+    "**/elm.json",
+    "**/elm-tooling.json"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.89.3.wasm",

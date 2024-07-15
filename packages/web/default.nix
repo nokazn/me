@@ -27,7 +27,7 @@ let
     '')
   ];
   shellHook = ''
-    pnpm install
+    pnpm install --frozen-lockfile
   '';
 in
 rec {

@@ -17,4 +17,6 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
 
       - name: Check
-        run: nix develop . -c check
+        run: nix develop . -c just check
+      - name: Test
+        run: nix develop . -c just test

@@ -2,6 +2,15 @@
   "name": "nokazn.me",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "pnpm run -r dev",
+    "preview": "pnpm run -r preview",
+    "check": "pnpm run -r check",
+    "fix": "pnpm run -r fix",
+    "test": "pnpm run -r test",
+    "build": "pnpm run -r build",
+    "deploy": "pnpm run -r deploy"
+  },
   "devDependencies": {
     "@types/node": "^20.11.25",
     "concurrently": "^8.2.2",

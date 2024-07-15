@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, workspace, ... }:
 
 let
   deps = with pkgs; [
@@ -10,6 +10,7 @@ let
   ];
   devDeps = with pkgs; [
     elmPackages.elm-format
+    elmPackages.elm-test
     elmPackages.elm-test-rs
     elmPackages.elm-review
     elmPackages.elm-json
@@ -31,44 +32,47 @@ let
   '';
 in
 rec {
-  name = "web";
-  buildInputs = deps;
+  name = workspace.name + "/web";
 
   devShells = {
-    default = pkgs.mkShell {
-      inherit name shellHook;
+    default = {
+      inherit shellHook;
       buildInputs = deps ++ devDeps ++ bin;
     };
-    build = pkgs.mkShell {
-      inherit name shellHook;
-      buildInputs = deps ++ bin;
+    build = {
+      inherit shellHook;
+      buildInputs = deps;
     };
   };
 
-  packages.default = pkgs.stdenv.mkDerivation {
-    inherit name buildInputs;
-    src = pkgs.lib.cleanSource ./.;
+  packages = {
+    default = pkgs.stdenv.mkDerivation {
+      inherit name;
+      inherit (devShells.build) buildInputs;
 
-    configurePhase = pkgs.elmPackages.fetchElmDeps {
-      elmPackages = import ./elm-srcs.nix;
-      elmVersion = "0.19.1";
-      registryDat = ./registry.dat;
+      src = pkgs.lib.cleanSource ../..;
+
+      configurePhase = pkgs.elmPackages.fetchElmDeps {
+        elmPackages = import ./elm-srcs.nix;
+        elmVersion = "0.19.1";
+        registryDat = ./registry.dat;
+      };
+
+      # TODO: fix `pnpm run build` errors
+      buildPhase = ''
+        export HOME=$(pwd)
+        export NIX_GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
+        export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+        pnpm install --frozen-lockfile
+        pnpm run -r build
+      '';
+      # TODO: fix `cp` errors
+      installPhase = ''
+        runHook preInstall
+        cp package.json $out/package.json
+        cp -r dist $out/dist
+        runHook postInstall
+      '';
     };
-
-    # TODO: fix `pnpm run build` errors
-    buildPhase = ''
-      export HOME=$(pwd)
-      export NIX_GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
-      export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
-      pnpm install
-      pnpm run build
-    '';
-    # TODO: fix `cp` errors
-    installPhase = ''
-      runHook preInstall
-      cp package.json $out/package.json
-      cp -r dist $out/dist
-      runHook postInstall
-    '';
   };
 }

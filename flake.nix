@@ -8,25 +8,55 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    naersk.url = "github:nix-community/naersk/master";
   };
 
   outputs =
     { nixpkgs
     , flake-utils
+    , naersk
     , ...
     }: flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
-      web = import ./packages/web { inherit pkgs; };
+      workspace = {
+        name = "nokazn.me";
+        buildInputs = with pkgs ; [
+          dprint
+          nixpkgs-fmt
+        ];
+      };
+      webLib = import ./packages/web {
+        inherit pkgs workspace;
+      };
+      workerLib = import ./packages/worker {
+        inherit pkgs workspace naersk;
+      };
     in
-    {
-      name = "nokazn.me";
+    rec {
+      name = workspace.name;
 
-      devShells = web.devShells;
+      devShells =
+        let
+          makeDevShells =
+            pkgs.lib.foldl
+              (current: package: {
+                buildInputs = current.buildInputs ++ package.devShells.default.buildInputs;
+                shellHook = current.shellHook + package.devShells.default.shellHook;
+              })
+              {
+                buildInputs = workspace.buildInputs;
+                shellHook = "";
+              };
+        in
+        {
+          default = pkgs.mkShell ({ inherit name; } // makeDevShells [ webLib workerLib ]);
+        };
 
-      packages = rec {
-        default = web;
-        web = web.packages.web;
+      packages = rec{
+        default = worker;
+        web = webLib.packages.default;
+        worker = workerLib.packages.default;
       };
     });
 }

@@ -6,7 +6,6 @@ let
     elm2nix
     nodePackages.pnpm
     elmPackages.elm
-    wrangler
   ];
   devDeps = with pkgs; [
     elmPackages.elm-format

@@ -140,48 +140,63 @@ view _ =
                      List.map liLink
                         [ { href = appendUsername "https://twitter.com/"
                           , text = "Twitter"
+                          , target = Just "_blank"
                           }
                         , { href = appendDomain "https://bsky.app/profile/bsky."
                           , text = "Bluesky"
+                          , target = Just "_blank"
                           }
                         , { href = "https://mstdn.jp/@nokazzn"
                           , text = "Mastdon (mstdn.jp)"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://misskey.io/@"
                           , text = "Misskey (misskey.io)"
+                          , target = Just "_blank"
                           }
                         , { href = "https://discord.com/users/642284424548843531"
                           , text = "Discord"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://keybase.io/"
                           , text = "Keybase"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://www.reddit.com/user/"
                           , text = "Reddit"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://scrapbox.io/"
                           , text = "Scrapbox"
+                          , target = Just "_blank"
                           }
                         , { href = appendDomain "https://md."
                           , text = "memo"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://github.com/"
                           , text = "GitHub"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://gitlab.com/"
                           , text = "GitLab"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://stackoverflow.com/users/12688834/"
                           , text = "Stack Overflow"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://soundcloud.com/"
                           , text = "SoundCloud"
+                          , target = Just "_blank"
                           }
                         , { href = appendUsername "https://bandcamp.com/"
                           , text = "Bandcamp"
+                          , target = Just "_blank"
                           }
                         , { href = "https://open.spotify.com/user/baleariclemon"
                           , text = "Spotify"
+                          , target = Just "_blank"
                           }
                         ]
                     )
@@ -208,11 +223,13 @@ view _ =
                          [ ( "Email: "
                            , { href = "mailto:" ++ email
                              , text = email
+                             , target = Just "_blank"
                              }
                            )
                          , ( "Twitter: "
                            , { href = appendUsername "https://twitter.com/"
                              , text = "@" ++ username
+                             , target = Just "_blank"
                              }
                            )
                          ]

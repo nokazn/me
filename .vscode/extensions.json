@@ -1,6 +1,8 @@
 {
   "recommendations": [
     "sbrink.elm",
-    "elmtooling.elm-ls-vscode"
+    "necinc.elmmet",
+    "b4dm4n.nixpkgs-fmt",
+    "rust-lang.rust-analyzer",
   ]
 }

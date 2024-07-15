@@ -11,7 +11,12 @@
     "**/node_modules",
     "**/*-lock.json",
     "**/elm.json",
-    "**/elm-tooling.json"
+    "**/elm-tooling.json",
+    "**/elm-stuff",
+    "**/dist",
+    "**/target",
+    "**/.wrangler",
+    ".direnv"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.89.3.wasm",

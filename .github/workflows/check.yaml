@@ -16,6 +16,8 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
 
+      - name: Format
+        run: nix develop . -c just fmt --check
       - name: Check
         run: nix develop . -c just check
       - name: Test

@@ -3,7 +3,13 @@ elm-stuff
 # elm-repl generated files
 repl-temp-*
 
+# Rust
+target
+**/*.rs.bk
+wasm-pack.log
+
 .direnv
 .wrangler
 dist
 node_modules
+result

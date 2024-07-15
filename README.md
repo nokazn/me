@@ -14,17 +14,17 @@ $ direnv allow
 $ pnpm install
 
 # Launch dev server
-$ pnpm run dev
+$ just dev
 
 # Build
-$ pnpm run build
+$ just build
 
 # Preview build artifacts
-$ pnpm run preview
+$ just preview
 
 # Run static checks
-$ pnpm run check
+$ just check
 
 # Deploy to CloudFlare pages by wrangler
-$ pnpm deploy
+$ just deploy
 ```

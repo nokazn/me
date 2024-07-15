@@ -4,9 +4,6 @@ default:
 dev:
   pnpm run dev
 
-preview:
-  pnpm run preview
-
 check:
   pnpm run check
   cargo check
@@ -42,6 +39,9 @@ test:
 build:
   pnpm run build
   cargo build
+
+preview: build
+  pnpm run preview
 
 deploy:
   pnpm run deploy

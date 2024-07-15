@@ -5,7 +5,6 @@
   "scripts": {
     "postinstall": "elm-tooling install",
     "dev": "vite",
-    "preview": "wrangler pages dev ./dist",
     "check": "concurrently -c auto npm:check:*",
     "check:format": "elm-format --validate .",
     "check:lint": "elm-review",
@@ -16,6 +15,7 @@
     "test": "elm-test-rs",
     "prebuild": "elm-tooling install",
     "build": "vite build",
+    "preview": "wrangler pages dev ./dist",
     "deploy": "wrangler pages deploy ./dist --project-name me"
   },
   "devDependencies": {

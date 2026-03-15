@@ -146,14 +146,6 @@ view _ =
                           , text = "Bluesky"
                           , target = Just "_blank"
                           }
-                        , { href = "https://mstdn.jp/@nokazzn"
-                          , text = "Mastdon (mstdn.jp)"
-                          , target = Just "_blank"
-                          }
-                        , { href = appendUsername "https://misskey.io/@"
-                          , text = "Misskey (misskey.io)"
-                          , target = Just "_blank"
-                          }
                         , { href = "https://discord.com/users/642284424548843531"
                           , text = "Discord"
                           , target = Just "_blank"
@@ -170,20 +162,12 @@ view _ =
                           , text = "Scrapbox"
                           , target = Just "_blank"
                           }
-                        , { href = appendDomain "https://md."
-                          , text = "memo"
-                          , target = Just "_blank"
-                          }
                         , { href = appendUsername "https://github.com/"
                           , text = "GitHub"
                           , target = Just "_blank"
                           }
                         , { href = appendUsername "https://gitlab.com/"
                           , text = "GitLab"
-                          , target = Just "_blank"
-                          }
-                        , { href = appendUsername "https://stackoverflow.com/users/12688834/"
-                          , text = "Stack Overflow"
                           , target = Just "_blank"
                           }
                         , { href = appendUsername "https://soundcloud.com/"

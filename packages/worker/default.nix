@@ -8,10 +8,6 @@ let
     rustPackages.clippy
     cargo-watch
     openssl.dev
-    libiconv
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.SystemConfiguration
   ];
   naerskLib = pkgs.callPackage naersk { };
 in

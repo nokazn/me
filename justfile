@@ -45,3 +45,11 @@ preview: build
 
 deploy:
   pnpm run deploy
+
+update: update-flake update-npm
+
+update-flake:
+  nix flake update
+
+update-npm:
+  pnpm update

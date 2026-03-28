@@ -10,32 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
-
       - name: Build
         run: nix develop . -c just build
       - name: Deploy Web
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: nix develop . -c pnpm --filter @nokazn.me/web deploy
+        run: nix develop . -c pnpm --filter @nokazn.me/web run deploy
 
   deploy-worker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
-
       - name: Build
         run: nix develop . -c just build
       - name: Deploy Worker
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: nix develop . -c pnpm --filter @nokazn.me/worker deploy
+        run: nix develop . -c pnpm --filter @nokazn.me/worker run deploy

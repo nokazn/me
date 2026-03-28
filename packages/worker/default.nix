@@ -1,4 +1,4 @@
-{ pkgs, workspace, naersk, ... }:
+{ pkgs, workspace, ... }:
 
 let
   buildInputs = with pkgs; [
@@ -7,9 +7,8 @@ let
     rustfmt
     rustPackages.clippy
     cargo-watch
-    openssl.dev
+    llvmPackages.lld
   ];
-  naerskLib = pkgs.callPackage naersk { };
 in
 {
   name = workspace.name + "/worker";
@@ -17,14 +16,13 @@ in
   devShells = {
     default = {
       inherit buildInputs;
-      shellHook = "";
+      shellHook = ''
+        rustup target add wasm32-unknown-unknown 2>/dev/null || true
+      '';
     };
   };
 
   packages = {
-    default = naerskLib.buildPackage {
-      inherit buildInputs;
-      src = ../..;
-    };
+    default = null;
   };
 }

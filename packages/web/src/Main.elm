@@ -1,6 +1,8 @@
-module Main exposing (main)
+module Main exposing (Flags, Model, Msg, main)
 
+import Api.Spotify as Spotify
 import Browser
+import Components.Activities as Activities
 import Components.Layouts.Footer as Footer
 import Components.Primitives.Card as Card
 import Components.Primitives.Link as Link
@@ -10,6 +12,7 @@ import Css.Global
 import Css.Media
 import Html.Styled exposing (Html, aside, div, h2, h3, li, main_, section, text, toUnstyled, ul)
 import Html.Styled.Attributes exposing (css, style)
+import Http
 import Utils.Styles exposing (sectionMargin)
 
 
@@ -17,13 +20,23 @@ import Utils.Styles exposing (sectionMargin)
 -- Main
 
 
-main : Program () Model ()
+main : Program Flags Model Msg
 main =
-    Browser.sandbox
+    Browser.element
         { init = init
         , update = update
+        , subscriptions = subscriptions
         , view = view >> toUnstyled
         }
+
+
+
+-- Flags
+
+
+type alias Flags =
+    { workerUrl : String
+    }
 
 
 
@@ -31,29 +44,53 @@ main =
 
 
 type alias Model =
-    String
+    { workerUrl : String
+    , activity : Maybe Spotify.SpotifyActivity
+    }
 
 
-init : Model
-init =
-    ""
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( { workerUrl = flags.workerUrl
+      , activity = Nothing
+      }
+    , Spotify.fetchActivity flags.workerUrl GotSpotifyActivity
+    )
 
 
 
 -- Update
 
 
-update : () -> Model -> Model
-update _ model =
-    model
+type Msg
+    = GotSpotifyActivity (Result Http.Error Spotify.SpotifyActivity)
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        GotSpotifyActivity (Ok activity) ->
+            ( { model | activity = Just activity }, Cmd.none )
+
+        GotSpotifyActivity (Err _) ->
+            ( model, Cmd.none )
+
+
+
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
 
 
 
 -- View
 
 
-view : Model -> Html ()
-view _ =
+view : Model -> Html Msg
+view model =
     let
         username : String
         username =
@@ -232,9 +269,9 @@ view _ =
             , h3
                 []
                 [ text "Music" ]
+            , Activities.view model.activity
             ]
         , Footer.view
             [ style "grid-column" "1 / -1"
             ]
-            {}
         ]

@@ -1,5 +1,4 @@
 {
-  "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
   "[elm]": {
     "editor.defaultFormatter": "elmTooling.elm-ls-vscode",
     "editor.formatOnSave": true
@@ -23,6 +22,15 @@
   "workbench.colorCustomizations": {
     "activityBar.background": "#39254C",
     "titleBar.activeBackground": "#4F346A",
-    "titleBar.activeForeground": "#FBFAFD"
-  }
+    "titleBar.activeForeground": "#FBFAFD",
+    "titleBar.inactiveBackground": "#38254B",
+    "titleBar.inactiveForeground": "#FCFAFD",
+    "statusBar.background": "#38254B",
+    "statusBar.foreground": "#FCFAFD",
+    "statusBar.debuggingBackground": "#38254B",
+    "statusBar.debuggingForeground": "#FCFAFD",
+    "statusBar.noFolderBackground": "#38254B",
+    "statusBar.noFolderForeground": "#FCFAFD"
+  },
+  "nixEnvSelector.suggestion": false
 }

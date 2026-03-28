@@ -1,0 +1,9 @@
+{
+  "name": "@nokazn.me/worker",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "cargo check",
+    "deploy": "wrangler deploy"
+  }
+}

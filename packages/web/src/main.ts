@@ -12,4 +12,9 @@ const node = document.querySelector("#app");
 if (node == null) {
   throw new Error("No #app element");
 }
-Elm.Main.init({ node });
+Elm.Main.init({
+  node,
+  flags: {
+    workerUrl: import.meta.env['VITE_WORKER_URL'] ?? "https://nokazn-me-api.workers.dev",
+  },
+});

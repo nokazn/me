@@ -6,12 +6,8 @@ import Html.Styled.Attributes exposing (css)
 import Utils.Colors exposing (colors)
 
 
-type alias Props =
-    {}
-
-
-view : List (Attribute msg) -> Props -> Html msg
-view attrs _ =
+view : List (Attribute msg) -> Html msg
+view attrs =
     footer
         (css
             [ Css.color colors.text2

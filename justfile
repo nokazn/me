@@ -4,6 +4,12 @@ default:
 dev:
   pnpm run dev
 
+dev-web:
+  pnpm --filter @nokazn.me/web run dev
+
+dev-worker:
+  pnpm --filter @nokazn.me/worker run dev
+
 check:
   pnpm run check
   cargo check
@@ -53,3 +59,7 @@ update-flake:
 
 update-npm:
   pnpm update
+
+# Get Spotify refresh token via OAuth (requires CLIENT_ID and CLIENT_SECRET)
+spotify-token client_id="" client_secret="":
+  bun scripts/get-spotify-token.mts "{{client_id}}" "{{client_secret}}"

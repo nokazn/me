@@ -1,0 +1,8 @@
+{
+  "name": "@nokazn.me/scripts",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}

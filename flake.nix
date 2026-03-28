@@ -20,6 +20,7 @@
       workspace = {
         name = "nokazn.me";
         buildInputs = with pkgs ; [
+          bun
           dprint
           nixpkgs-fmt
           just

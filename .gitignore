@@ -13,3 +13,5 @@ wasm-pack.log
 dist
 node_modules
 result
+.dev.vars
+.env.local

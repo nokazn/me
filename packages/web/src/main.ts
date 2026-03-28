@@ -16,5 +16,6 @@ Elm.Main.init({
   node,
   flags: {
     workerUrl: import.meta.env['VITE_WORKER_URL'] ?? "https://nokazn-me-api.workers.dev",
+    currentYear: new Date().getFullYear(),
   },
 });

@@ -36,6 +36,7 @@ main =
 
 type alias Flags =
     { workerUrl : String
+    , currentYear : Int
     }
 
 
@@ -45,6 +46,7 @@ type alias Flags =
 
 type alias Model =
     { workerUrl : String
+    , currentYear : Int
     , activity : Maybe Spotify.SpotifyActivity
     }
 
@@ -52,6 +54,7 @@ type alias Model =
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     ( { workerUrl = flags.workerUrl
+      , currentYear = flags.currentYear
       , activity = Nothing
       }
     , Spotify.fetchActivity flags.workerUrl GotSpotifyActivity
@@ -271,7 +274,7 @@ view model =
                 [ text "Music" ]
             , Activities.view model.activity
             ]
-        , Footer.view
+        , Footer.view model.currentYear
             [ style "grid-column" "1 / -1"
             ]
         ]

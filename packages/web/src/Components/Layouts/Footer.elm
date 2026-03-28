@@ -6,13 +6,13 @@ import Html.Styled.Attributes exposing (css)
 import Utils.Colors exposing (colors)
 
 
-view : List (Attribute msg) -> Html msg
-view attrs =
+view : Int -> List (Attribute msg) -> Html msg
+view currentYear attrs =
     footer
         (css
             [ Css.color colors.text2
             ]
             :: attrs
         )
-        [ small [] [ text "© 2024 nokazn" ]
+        [ small [] [ text ("© " ++ String.fromInt currentYear ++ " nokazn") ]
         ]

@@ -8,6 +8,8 @@ let
     rustPackages.clippy
     cargo-watch
     llvmPackages.lld
+    openssl
+    pkg-config
   ];
 in
 {

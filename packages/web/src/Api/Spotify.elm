@@ -1,4 +1,4 @@
-module Api.Spotify exposing (SpotifyActivity, TrackInfo, fetchActivity)
+module Api.Spotify exposing (ActivityState(..), SpotifyActivity, TrackInfo, fetchActivity)
 
 import Http
 import Json.Decode as Decode exposing (Decoder)
@@ -18,6 +18,12 @@ type alias SpotifyActivity =
     { currentlyPlaying : Maybe TrackInfo
     , recentlyPlayed : List TrackInfo
     }
+
+
+type ActivityState
+    = ActivityLoading
+    | ActivityLoaded SpotifyActivity
+    | ActivityFailed Http.Error
 
 
 trackInfoDecoder : Decoder TrackInfo

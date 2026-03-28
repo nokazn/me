@@ -1,68 +1,65 @@
 module Components.Activities exposing (view)
 
-import Api.Spotify exposing (SpotifyActivity, TrackInfo)
+import Api.Spotify exposing (ActivityState(..), TrackInfo)
 import Components.Primitives.Link as Link
 import Css
-import Html.Styled exposing (Html, div, img, li, text, ul)
+import Html.Styled exposing (Attribute, Html, div, img, text)
 import Html.Styled.Attributes exposing (alt, css, src)
+import Http
 import Utils.Colors exposing (colors)
 
 
-view : Maybe SpotifyActivity -> Html msg
-view maybeActivity =
-    case maybeActivity of
-        Nothing ->
+httpErrorToString : Http.Error -> String
+httpErrorToString err =
+    case err of
+        Http.BadUrl url ->
+            "Bad URL: " ++ url
+
+        Http.Timeout ->
+            "Timeout"
+
+        Http.NetworkError ->
+            "Network error (CORS?)"
+
+        Http.BadStatus code ->
+            "HTTP " ++ String.fromInt code
+
+        Http.BadBody body ->
+            "Bad body: " ++ body
+
+
+view : List (Attribute msg) -> ActivityState -> Html msg
+view attrs state =
+    case state of
+        ActivityLoading ->
             div
-                [ css [ Css.color colors.text2 ] ]
+                (css [ Css.color colors.text2 ] :: attrs)
                 [ text "Loading..." ]
 
-        Just activity ->
-            div []
-                (viewCurrentlyPlaying activity.currentlyPlaying
-                    ++ viewRecentlyPlayed activity.recentlyPlayed
-                )
+        ActivityFailed err ->
+            div
+                (css [ Css.color colors.text2 ] :: attrs)
+                [ text ("Failed: " ++ httpErrorToString err) ]
 
+        ActivityLoaded activity ->
+            let
+                track : Maybe TrackInfo
+                track =
+                    case activity.currentlyPlaying of
+                        Just t ->
+                            Just t
 
-viewCurrentlyPlaying : Maybe TrackInfo -> List (Html msg)
-viewCurrentlyPlaying maybeTrack =
-    case maybeTrack of
-        Nothing ->
-            []
+                        Nothing ->
+                            List.head activity.recentlyPlayed
+            in
+            case track of
+                Nothing ->
+                    div
+                        (css [ Css.color colors.text2 ] :: attrs)
+                        [ text "No recent tracks." ]
 
-        Just track ->
-            [ div
-                [ css
-                    [ Css.marginBottom (Css.px 16)
-                    ]
-                ]
-                [ div
-                    [ css
-                        [ Css.color colors.text2
-                        , Css.fontSize (Css.px 12)
-                        , Css.marginBottom (Css.px 4)
-                        ]
-                    ]
-                    [ text "Now Playing" ]
-                , viewTrackItem track
-                ]
-            ]
-
-
-viewRecentlyPlayed : List TrackInfo -> List (Html msg)
-viewRecentlyPlayed tracks =
-    if List.isEmpty tracks then
-        []
-
-    else
-        [ ul
-            [ css
-                [ Css.listStyle Css.none
-                , Css.padding Css.zero
-                , Css.margin Css.zero
-                ]
-            ]
-            (List.map (\track -> li [ css [ Css.marginBottom (Css.px 8) ] ] [ viewTrackItem track ]) tracks)
-        ]
+                Just t ->
+                    div attrs [ viewTrackItem t ]
 
 
 viewTrackItem : TrackInfo -> Html msg

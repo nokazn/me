@@ -47,7 +47,7 @@ type alias Flags =
 type alias Model =
     { workerUrl : String
     , currentYear : Int
-    , activity : Maybe Spotify.SpotifyActivity
+    , activity : Spotify.ActivityState
     }
 
 
@@ -55,7 +55,7 @@ init : Flags -> ( Model, Cmd Msg )
 init flags =
     ( { workerUrl = flags.workerUrl
       , currentYear = flags.currentYear
-      , activity = Nothing
+      , activity = Spotify.ActivityLoading
       }
     , Spotify.fetchActivity flags.workerUrl GotSpotifyActivity
     )
@@ -73,10 +73,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GotSpotifyActivity (Ok activity) ->
-            ( { model | activity = Just activity }, Cmd.none )
+            ( { model | activity = Spotify.ActivityLoaded activity }, Cmd.none )
 
-        GotSpotifyActivity (Err _) ->
-            ( model, Cmd.none )
+        GotSpotifyActivity (Err err) ->
+            ( { model | activity = Spotify.ActivityFailed err }, Cmd.none )
 
 
 
@@ -272,7 +272,7 @@ view model =
             , h3
                 []
                 [ text "Music" ]
-            , Activities.view model.activity
+            , Activities.view [ style "margin-top" "8px" ] model.activity
             ]
         , Footer.view model.currentYear
             [ style "grid-column" "1 / -1"

@@ -97,9 +97,18 @@ const devVarsContent = [
   `SPOTIFY_CLIENT_ID=${clientId}`,
   `SPOTIFY_CLIENT_SECRET=${clientSecret}`,
   `SPOTIFY_REFRESH_TOKEN=${tokenData["refresh_token"]}`,
+  `ALLOWED_ORIGIN=http://localhost:5173`,
 ].join("\n") + "\n";
 
 await Bun.write(devVarsPath, devVarsContent);
 
-console.log(`5. Written secrets to ${devVarsPath}\n`);
+const webEnvPath = "packages/web/.env.local";
+if (!(await Bun.file(webEnvPath).exists())) {
+  await Bun.write(webEnvPath, "VITE_WORKER_URL=http://localhost:8787\n");
+  console.log(`5. Written ${webEnvPath}`);
+} else {
+  console.log(`5. ${webEnvPath} already exists, skipping`);
+}
+
+console.log(`   Written secrets to ${devVarsPath}\n`);
 console.log(`Done! Run \`just dev\` to start the local server.`);

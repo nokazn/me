@@ -1,4 +1,4 @@
-name = "nokazn-me-api"
+name = "me-api"
 main = "build/worker/shim.mjs"
 compatibility_date = "2025-03-01"
 

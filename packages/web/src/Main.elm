@@ -266,14 +266,21 @@ view model =
                 [ Css.minWidth <| Css.px minCardWidth
                 ]
             ]
-            [ h2
+            (h2
                 []
                 [ text "Activities" ]
-            , h3
-                []
-                [ text "Music" ]
-            , Activities.view [ style "margin-top" "8px" ] model.activity
-            ]
+                :: (case model.activity of
+                        Spotify.ActivityFailed _ ->
+                            []
+
+                        _ ->
+                            [ h3
+                                []
+                                [ text "Music" ]
+                            , Activities.view [ style "margin-top" "8px" ] model.activity
+                            ]
+                   )
+            )
         , Footer.view model.currentYear
             [ style "grid-column" "1 / -1"
             ]

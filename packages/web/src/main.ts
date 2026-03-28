@@ -15,7 +15,7 @@ if (node == null) {
 Elm.Main.init({
   node,
   flags: {
-    workerUrl: import.meta.env['VITE_WORKER_URL'] ?? "https://nokazn-me-api.workers.dev",
+    workerUrl: import.meta.env['VITE_WORKER_URL'] ?? "https://api.nokazn.me",
     currentYear: new Date().getFullYear(),
   },
 });

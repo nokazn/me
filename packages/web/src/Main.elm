@@ -148,7 +148,7 @@ view model =
                 [ Css.Media.only Css.Media.screen [ Css.Media.minWidth <| Css.px (breakPoint + 1) ] ]
                 [ Css.property "display" "grid"
                 , Css.property "justify-content" "center"
-                , Css.property "grid-template-columns" "minmax(auto, 640px) minmax(240px, 320px)"
+                , Css.property "grid-template-columns" "minmax(auto, 480px) minmax(240px, 320px)"
                 , Css.property "gap" "max(24px, 2%)"
                 , Css.property "padding" "40px max(40px, 2%)"
                 ]
